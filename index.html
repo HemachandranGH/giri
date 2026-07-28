@@ -1,18 +1,724 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giri Prasath R K - Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-<div id="app">
-<h1>Portfolio Project</h1>
-<p>Your original HTML is included as <code>original.html</code>.</p>
-<button id="demoBtn">Click Me</button>
-<p id="msg"></p>
-</div>
-<script src="js/script.js"></script>
+<body class="bg-[#0B1120] text-slate-100 min-h-screen">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useCallback } = React;
+
+    // Helper component for Lucide Icons in browser UMD
+    const Icon = ({ name, size = 18, className = "" }) => {
+      const ref = useRef(null);
+      useEffect(() => {
+        if (ref.current) {
+          ref.current.innerHTML = '';
+          const i = document.createElement('i');
+          i.setAttribute('data-lucide', name);
+          if (className) i.className = className;
+          ref.current.appendChild(i);
+          if (window.lucide) lucide.createIcons({ targets: [i] });
+        }
+      }, [name, className]);
+      return <span ref={ref} style={{ display: 'inline-flex', width: size, height: size, alignItems: 'center', justifyContent: 'center' }} />;
+    };
+
+    const Github = (p) => <Icon name="github" {...p} />;
+    const Linkedin = (p) => <Icon name="linkedin" {...p} />;
+    const Mail = (p) => <Icon name="mail" {...p} />;
+    const Phone = (p) => <Icon name="phone" {...p} />;
+    const MapPin = (p) => <Icon name="map-pin" {...p} />;
+    const Download = (p) => <Icon name="download" {...p} />;
+    const ExternalLink = (p) => <Icon name="external-link" {...p} />;
+    const Code2 = (p) => <Icon name="code" {...p} />;
+    const Database = (p) => <Icon name="database" {...p} />;
+    const Wrench = (p) => <Icon name="wrench" {...p} />;
+    const GitBranch = (p) => <Icon name="git-branch" {...p} />;
+    const Award = (p) => <Icon name="award" {...p} />;
+    const Briefcase = (p) => <Icon name="briefcase" {...p} />;
+    const GraduationCap = (p) => <Icon name="graduation-cap" {...p} />;
+    const Send = (p) => <Icon name="send" {...p} />;
+    const Menu = (p) => <Icon name="menu" {...p} />;
+    const X = (p) => <Icon name="x" {...p} />;
+    const Terminal = (p) => <Icon name="terminal" {...p} />;
+    const Layers = (p) => <Icon name="layers" {...p} />;
+    const Trophy = (p) => <Icon name="trophy" {...p} />;
+    const Users = (p) => <Icon name="users" {...p} />;
+    const Star = (p) => <Icon name="star" {...p} />;
+    const ArrowUpRight = (p) => <Icon name="arrow-up-right" {...p} />;
+    const CheckCircle2 = (p) => <Icon name="check-circle-2" {...p} />;
+    const BookOpen = (p) => <Icon name="book-open" {...p} />;
+
+    const RESUME = {
+      name: "Giri Prasath R K",
+      role: "Aspiring Software Engineer",
+      roles: ["Software Engineer", "Backend Developer", "Java Developer", "Full Stack Developer"],
+      summary:
+        "Final-year Computer Science undergraduate who likes taking a system apart to see how the pieces fit, then rebuilding it better. Comfortable moving between hardware (Arduino sensors) and full-stack web apps (React, Node, MongoDB), with a growing interest in data analysis and prompt engineering.",
+      email: "giriprasath2805@gmail.com",
+      phone: "+91 9488788505",
+      location: "Pollachi, Tamil Nadu, India",
+      github: "https://github.com/GiriPrasath28",
+      linkedin: "https://www.linkedin.com/in/giri-prasath",
+      areasOfInterest: ["Web Development", "Data Analysis", "Prompt Engineering"],
+      skills: {
+        "Languages": { icon: "code", items: [
+          { name: "Java", level: 75 }, { name: "C++", level: 70 }, { name: "C", level: 70 },
+        ]},
+        "Frameworks": { icon: "layers", items: [
+          { name: "React", level: 70 }, { name: "Node.js", level: 70 },
+        ]},
+        "Databases": { icon: "database", items: [
+          { name: "MongoDB", level: 70 }, { name: "MySQL", level: 65 },
+        ]},
+        "Tools & Version Control": { icon: "wrench", items: [
+          { name: "Git", level: 75 }, { name: "VS Code", level: 85 },
+        ]},
+      },
+      softSkills: [
+        { name: "Communication", detail: "Excellent verbal and written communication" },
+        { name: "Teamwork", detail: "Ability to collaborate effectively" },
+        { name: "Adaptability", detail: "Quick learner with a flexible mindset" },
+      ],
+      experience: [
+        {
+          company: "Litz Technology",
+          role: "Web Development Intern",
+          duration: "12 Jun 2025 – 28 Jun 2025",
+          tech: ["HTML/CSS", "Responsive Design", "UI/UX"],
+          points: [
+            "Completed a web development internship focused on page design and building responsive websites.",
+            "Gained hands-on experience with front-end development, UI/UX principles and content structuring.",
+            "Collaborated with team members to design user-friendly interfaces and improve website performance.",
+          ],
+        },
+      ],
+      projects: [
+        {
+          title: "Buy and Sell Platform",
+          duration: "Sep 2025 – Nov 2025",
+          featured: true,
+          tags: ["React.js", "Node.js", "MongoDB", "Socket.io"],
+          description:
+            "A full-stack marketplace where users list, edit and remove products, chat with sellers in real time, comment, and save favourites — with live status indicators for every listing.",
+          features: [
+            "Real-time chat between buyers and sellers via Socket.io",
+            "RESTful API layer for products, comments and favourites",
+            "Secure user authentication",
+            "Responsive UI across devices",
+          ],
+          github: "https://github.com/GiriPrasath28",
+          demo: null,
+        },
+        {
+          title: "Smart Dust Bin (IoT)",
+          duration: "May 2025",
+          featured: true,
+          tags: ["Arduino Uno", "Sensors", "Embedded C"],
+          description:
+            "An automated dustbin that opens its lid the moment it senses someone nearby, built on an Arduino Uno with motor and proximity-sensor control.",
+          features: [
+            "Real-time human proximity detection",
+            "Motor-driven automatic lid mechanism",
+            "Low-cost, low-power embedded design",
+          ],
+          github: "https://github.com/GiriPrasath28",
+          demo: null,
+        },
+      ],
+      education: [
+        {
+          degree: "Bachelor of Engineering, Computer Science",
+          school: "Dr. Mahalingam College of Engineering and Technology, Pollachi",
+          period: "Expected May 2027",
+          detail: "CGPA: 7.5",
+        },
+        {
+          degree: "Higher Secondary Certificate",
+          school: "Velavan Matriculation Higher Secondary School, Tiruppur",
+          period: "Completed March 2023",
+          detail: "75%",
+        },
+        {
+          degree: "Secondary School Leaving Certificate",
+          school: "Velavan Matriculation Higher Secondary School, Tiruppur",
+          period: "Completed March 2021",
+          detail: "100%",
+        },
+      ],
+      certifications: [
+        { name: "Environmental Impact Assessment", issuer: "NPTEL" },
+        { name: "Introduction to MongoDB", issuer: "MongoDB" },
+      ],
+      achievements: [
+        { title: "1st Place – Technical Quiz", detail: "Intra-college competition", icon: "trophy" },
+        { title: "District-Level Cricket Winner", detail: "Represented at district level", icon: "star" },
+      ],
+      extracurricular: [
+        { title: "Rostrum Club", detail: "Active member" },
+        { title: "College Volunteering", detail: "Volunteered in college events and student coordination" },
+      ],
+      codingProfiles: [
+        { name: "GitHub", handle: "GiriPrasath28", url: "https://github.com/GiriPrasath28" },
+        { name: "LinkedIn", handle: "giri-prasath", url: "https://www.linkedin.com/in/giri-prasath" },
+      ],
+    };
+
+    const NAV_ITEMS = ["Home", "About", "Skills", "Experience", "Projects", "Education", "Achievements", "Contact"];
+
+    function useReveal() {
+      const ref = useRef(null);
+      const [visible, setVisible] = useState(false);
+      useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const io = new IntersectionObserver(
+          ([entry]) => { if (entry.isIntersecting) { setVisible(true); io.disconnect(); } },
+          { threshold: 0.15 }
+        );
+        io.observe(el);
+        return () => io.disconnect();
+      }, []);
+      return [ref, visible];
+    }
+
+    function Reveal({ children, className = "", delay = 0 }) {
+      const [ref, visible] = useReveal();
+      return (
+        <div
+          ref={ref}
+          className={className}
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(24px)",
+            transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
+          }}
+        >
+          {children}
+        </div>
+      );
+    }
+
+    function Section({ id, eyebrow, title, subtitle, children }) {
+      return (
+        <section id={id} className="relative py-24 sm:py-28 px-6 sm:px-10 max-w-6xl mx-auto scroll-mt-20">
+          <Reveal className="mb-14 max-w-2xl">
+            <p className="font-mono text-xs tracking-[0.25em] uppercase text-indigo-400 mb-3">{eyebrow}</p>
+            <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-100 tracking-tight">{title}</h2>
+            {subtitle && <p className="mt-4 text-slate-300 leading-relaxed">{subtitle}</p>}
+          </Reveal>
+          {children}
+        </section>
+      );
+    }
+
+    const SKILL_ICONS = { code: Code2, layers: Layers, database: Database, wrench: Wrench };
+
+    function Portfolio() {
+      const [menuOpen, setMenuOpen] = useState(false);
+      const [typedText, setTypedText] = useState("");
+      const [roleIndex, setRoleIndex] = useState(0);
+      const [charIndex, setCharIndex] = useState(0);
+      const [deleting, setDeleting] = useState(false);
+      const [activeSection, setActiveSection] = useState("home");
+      const [formState, setFormState] = useState({ name: "", email: "", subject: "", message: "" });
+      const [sent, setSent] = useState(false);
+
+      useEffect(() => {
+        const current = RESUME.roles[roleIndex];
+        const speed = deleting ? 40 : 85;
+        const timeout = setTimeout(() => {
+          if (!deleting) {
+            if (charIndex < current.length) {
+              setCharIndex((c) => c + 1);
+              setTypedText(current.slice(0, charIndex + 1));
+            } else {
+              setTimeout(() => setDeleting(true), 1400);
+            }
+          } else {
+            if (charIndex > 0) {
+              setCharIndex((c) => c - 1);
+              setTypedText(current.slice(0, charIndex - 1));
+            } else {
+              setDeleting(false);
+              setRoleIndex((r) => (r + 1) % RESUME.roles.length);
+            }
+          }
+        }, speed);
+        return () => clearTimeout(timeout);
+      }, [charIndex, deleting, roleIndex]);
+
+      useEffect(() => {
+        const handler = () => {
+          let current = "home";
+          for (const item of NAV_ITEMS) {
+            const el = document.getElementById(item.toLowerCase());
+            if (el && window.scrollY + 120 >= el.offsetTop) current = item.toLowerCase();
+          }
+          setActiveSection(current);
+        };
+        window.addEventListener("scroll", handler);
+        return () => window.removeEventListener("scroll", handler);
+      }, []);
+
+      const scrollTo = useCallback((id) => {
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+        setMenuOpen(false);
+      }, []);
+
+      const handlePrint = () => window.print();
+
+      const handleFormSubmit = (e) => {
+        e.preventDefault();
+        setSent(true);
+        setTimeout(() => setSent(false), 3500);
+        setFormState({ name: "", email: "", subject: "", message: "" });
+      };
+
+      return (
+        <div className="bg-[#0B1120] text-slate-100 min-h-screen font-body antialiased selection:bg-indigo-500/30 selection:text-white" style={{ backgroundColor: '#0B1120', color: '#f8fafc' }}>
+          <style>{`
+            @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+            :root, body, html { background-color: #0B1120 !important; color: #f8fafc !important; }
+            .font-display { font-family: 'Manrope', sans-serif; }
+            .font-body { font-family: 'Inter', sans-serif; }
+            .font-mono { font-family: 'JetBrains Mono', monospace; }
+            html { scroll-behavior: smooth; }
+            @keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+            .cursor-blink { animation: blink 1s step-start infinite; }
+            @keyframes float1 { 0%,100% { transform: translate(0,0) } 50% { transform: translate(30px,-40px) } }
+            @keyframes float2 { 0%,100% { transform: translate(0,0) } 50% { transform: translate(-40px,30px) } }
+            .float-a { animation: float1 14s ease-in-out infinite; }
+            .float-b { animation: float2 18s ease-in-out infinite; }
+            .grad-text { background: linear-gradient(90deg,#818cf8,#a78bfa,#22d3ee); -webkit-background-clip: text; background-clip: text; color: transparent; }
+            .grad-border { position: relative; }
+            .grad-border::before { content:""; position:absolute; inset:-1px; border-radius: inherit; padding:1px; background: linear-gradient(135deg,#6366f1,#a855f7,#06b6d4); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity .3s; pointer-events:none; }
+            .grad-border:hover::before { opacity: 1; }
+            .skill-bar-fill { transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+            @media print { .no-print { display: none !important; } }
+          `}</style>
+
+          <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+            <div className="float-a absolute top-[-10%] left-[-5%] w-[420px] h-[420px] rounded-full bg-indigo-600/20 blur-[120px]" />
+            <div className="float-b absolute bottom-[-10%] right-[-5%] w-[480px] h-[480px] rounded-full bg-purple-600/20 blur-[120px]" />
+            <div className="absolute top-[40%] right-[20%] w-[300px] h-[300px] rounded-full bg-cyan-500/10 blur-[100px]" />
+          </div>
+
+          <header className="no-print fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-[#0B1120]/70 border-b border-white/5">
+            <div className="max-w-6xl mx-auto px-6 sm:px-10 h-16 flex items-center justify-between">
+              <button onClick={() => scrollTo("home")} className="font-display font-extrabold text-lg text-slate-100 tracking-tight">
+                GP<span className="grad-text">.</span>
+              </button>
+              <nav className="hidden lg:flex items-center gap-1">
+                {NAV_ITEMS.map((item) => {
+                  const id = item.toLowerCase();
+                  const active = activeSection === id;
+                  return (
+                    <button key={item} onClick={() => scrollTo(id)}
+                      className={`px-3.5 py-2 rounded-full text-sm font-medium transition-colors ${
+                        active ? "text-white bg-white/10" : "text-slate-300 hover:text-white"
+                      }`}>
+                      {item}
+                    </button>
+                  );
+                })}
+              </nav>
+              <div className="hidden lg:block">
+                <button onClick={handlePrint} className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:opacity-90 transition-opacity">
+                  <Download size={15} /> Resume
+                </button>
+              </div>
+              <button className="lg:hidden text-slate-100" onClick={() => setMenuOpen((o) => !o)}>
+                {menuOpen ? <X size={22} /> : <Menu size={22} />}
+              </button>
+            </div>
+            {menuOpen && (
+              <div className="lg:hidden px-6 pb-4 flex flex-col gap-1 bg-[#0B1120]/95 border-b border-white/5">
+                {NAV_ITEMS.map((item) => (
+                  <button key={item} onClick={() => scrollTo(item.toLowerCase())} className="text-left px-3 py-2.5 rounded-lg text-sm text-slate-200 hover:bg-white/5">
+                    {item}
+                  </button>
+                ))}
+                <button onClick={handlePrint} className="mt-2 flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-500">
+                  <Download size={15} /> Download Resume
+                </button>
+              </div>
+            )}
+          </header>
+
+          <section id="home" className="relative pt-40 pb-28 px-6 sm:px-10 max-w-6xl mx-auto grid lg:grid-cols-[1.1fr_0.9fr] gap-14 items-center scroll-mt-20">
+            <Reveal>
+              <p className="font-mono text-sm text-indigo-400 mb-4">Hi, my name is</p>
+              <h1 className="font-display text-4xl sm:text-6xl font-extrabold text-slate-100 leading-[1.05] tracking-tight">
+                {RESUME.name}
+              </h1>
+              <div className="mt-4 h-10 sm:h-12 font-display text-2xl sm:text-3xl font-bold grad-text">
+                {typedText}<span className="cursor-blink text-indigo-400">|</span>
+              </div>
+              <p className="mt-6 text-slate-300 leading-relaxed max-w-xl">{RESUME.summary}</p>
+
+              <div className="mt-9 flex flex-wrap gap-3">
+                <button onClick={() => scrollTo("projects")} className="px-5 py-3 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:shadow-lg hover:shadow-indigo-500/25 transition-shadow">
+                  View Projects
+                </button>
+                <button onClick={handlePrint} className="px-5 py-3 rounded-full text-sm font-semibold text-slate-100 border border-white/15 hover:bg-white/5 transition-colors flex items-center gap-2">
+                  <Download size={15} /> Download Resume
+                </button>
+                <button onClick={() => scrollTo("contact")} className="px-5 py-3 rounded-full text-sm font-semibold text-slate-100 border border-white/15 hover:bg-white/5 transition-colors">
+                  Contact Me
+                </button>
+              </div>
+
+              <div className="mt-9 flex items-center gap-4">
+                {[
+                  { icon: Github, href: RESUME.github, label: "GitHub" },
+                  { icon: Linkedin, href: RESUME.linkedin, label: "LinkedIn" },
+                  { icon: Mail, href: `mailto:${RESUME.email}`, label: "Email" },
+                ].map(({ icon: Icon, href, label }) => (
+                  <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label}
+                    className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-300 hover:text-white hover:border-indigo-400/50 hover:bg-white/5 transition-colors">
+                    <Icon size={17} />
+                  </a>
+                ))}
+              </div>
+            </Reveal>
+
+            <Reveal delay={150}>
+              <div className="grad-border rounded-2xl bg-[#111827] border border-white/10 shadow-2xl shadow-black/40 overflow-hidden">
+                <div className="flex items-center gap-1.5 px-4 py-3 border-b border-white/5 bg-white/[0.02]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-400/70" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/70" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-green-400/70" />
+                  <span className="ml-3 font-mono text-xs text-slate-300">giri@portfolio — zsh</span>
+                </div>
+                <div className="p-6 font-mono text-sm leading-7">
+                  <p><span className="text-emerald-400">giri@dev</span><span className="text-slate-300">:~$</span> whoami</p>
+                  <p className="text-slate-200 pl-0">{RESUME.role}</p>
+                  <p className="mt-3"><span className="text-emerald-400">giri@dev</span><span className="text-slate-300">:~$</span> cat education.txt</p>
+                  <p className="text-slate-200">B.E. Computer Science — CGPA 7.5</p>
+                  <p className="text-slate-300">Dr. Mahalingam College of Engg &amp; Tech</p>
+                  <p className="mt-3"><span className="text-emerald-400">giri@dev</span><span className="text-slate-300">:~$</span> ls interests/</p>
+                  <p className="text-cyan-300">{RESUME.areasOfInterest.join("   ")}</p>
+                  <p className="mt-3"><span className="text-emerald-400">giri@dev</span><span className="text-slate-300">:~$</span> <span className="cursor-blink">▍</span></p>
+                </div>
+              </div>
+            </Reveal>
+          </section>
+
+          <Section id="about" eyebrow="About" title="A little about my journey" subtitle="">
+            <div className="grid md:grid-cols-5 gap-8">
+              <Reveal className="md:col-span-3 space-y-4 text-slate-300 leading-relaxed">
+                <p>
+                  I'm a Computer Science undergraduate at Dr. Mahalingam College of Engineering and Technology,
+                  graduating in {RESUME.education[0].period.replace("Expected ", "")}. My interest in engineering started
+                  with a hands-on Arduino project and has since grown into building complete web applications —
+                  from the database up to the interface.
+                </p>
+                <p>
+                  I care most about solving real problems cleanly: writing code that's easy to read, APIs that behave
+                  predictably, and interfaces people don't have to think twice about. Outside of coursework, I'm
+                  exploring data analysis and prompt engineering as the next layer of that skill set.
+                </p>
+                <p>
+                  I learn quickly, work well in a team, and treat every internship, project, or competition as a
+                  chance to close a gap in what I know.
+                </p>
+                <div className="pt-2 flex flex-wrap gap-2">
+                  {RESUME.areasOfInterest.map((a) => (
+                    <span key={a} className="px-3 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-slate-200">{a}</span>
+                  ))}
+                </div>
+              </Reveal>
+              <Reveal delay={120} className="md:col-span-2 space-y-4">
+                {RESUME.softSkills.map((s) => (
+                  <div key={s.name} className="rounded-xl border border-white/10 bg-white/[0.03] p-4 flex gap-3 items-start hover:bg-white/[0.05] transition-colors">
+                    <CheckCircle2 size={18} className="text-indigo-400 mt-0.5 shrink-0" />
+                    <div>
+                      <p className="text-sm font-semibold text-slate-100">{s.name}</p>
+                      <p className="text-xs text-slate-300 mt-0.5">{s.detail}</p>
+                    </div>
+                  </div>
+                ))}
+              </Reveal>
+            </div>
+          </Section>
+
+          <Section id="skills" eyebrow="Skills" title="Technical toolbox" subtitle="Languages, frameworks and tools I build with — proficiency reflects hands-on project experience, not certification.">
+            <div className="grid sm:grid-cols-2 gap-6">
+              {Object.entries(RESUME.skills).map(([cat, data], i) => {
+                const IconComponent = SKILL_ICONS[data.icon] || Code2;
+                return (
+                  <Reveal key={cat} delay={i * 80}>
+                    <div className="grad-border rounded-2xl border border-white/10 bg-white/[0.03] p-6 h-full hover:-translate-y-1 transition-transform duration-300">
+                      <div className="flex items-center gap-3 mb-5">
+                        <div className="w-9 h-9 rounded-lg bg-indigo-500/15 flex items-center justify-center text-indigo-400">
+                          <IconComponent size={18} />
+                        </div>
+                        <h3 className="font-display font-bold text-slate-100">{cat}</h3>
+                      </div>
+                      <div className="space-y-4">
+                        {data.items.map((it) => (
+                          <SkillBar key={it.name} name={it.name} level={it.level} />
+                        ))}
+                      </div>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </Section>
+
+          <Section id="experience" eyebrow="Experience" title="Where I've worked" subtitle="">
+            <div className="relative pl-8 border-l border-white/10 space-y-10">
+              {RESUME.experience.map((exp, i) => (
+                <Reveal key={exp.company} delay={i * 100} className="relative">
+                  <span className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-[#0B1120] border-2 border-indigo-400" />
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+                    <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+                      <h3 className="font-display font-bold text-lg text-slate-100">{exp.role}</h3>
+                      <span className="font-mono text-xs text-slate-300">{exp.duration}</span>
+                    </div>
+                    <p className="text-indigo-400 text-sm font-semibold mb-4 flex items-center gap-2"><Briefcase size={14}/> {exp.company}</p>
+                    <ul className="space-y-2 text-sm text-slate-300 mb-4">
+                      {exp.points.map((p) => (
+                        <li key={p} className="flex gap-2"><span className="text-indigo-400 mt-1">▸</span><span>{p}</span></li>
+                      ))}
+                    </ul>
+                    <div className="flex flex-wrap gap-2">
+                      {exp.tech.map((t) => (
+                        <span key={t} className="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 border border-white/10 text-slate-300">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </Section>
+
+          <Section id="projects" eyebrow="Projects" title="Things I've built" subtitle="Every project below is drawn directly from real work — a full-stack marketplace and an embedded IoT build.">
+            <div className="grid md:grid-cols-2 gap-7">
+              {RESUME.projects.map((p, i) => (
+                <Reveal key={p.title} delay={i * 100}>
+                  <ProjectCard project={p} />
+                </Reveal>
+              ))}
+            </div>
+          </Section>
+
+          <Section id="education" eyebrow="Education" title="Academic background" subtitle="">
+            <div className="relative pl-8 border-l border-white/10 space-y-8">
+              {RESUME.education.map((ed, i) => (
+                <Reveal key={ed.degree} delay={i * 90} className="relative">
+                  <span className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-[#0B1120] border-2 border-purple-400" />
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <GraduationCap size={16} className="text-purple-400" />
+                        <h3 className="font-display font-bold text-slate-100">{ed.degree}</h3>
+                      </div>
+                      <p className="text-sm text-slate-300">{ed.school}</p>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <p className="font-mono text-xs text-slate-300">{ed.period}</p>
+                      <p className="text-sm font-semibold text-indigo-400 mt-1">{ed.detail}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </Section>
+
+          <Section id="achievements" eyebrow="Achievements" title="Certifications & recognition" subtitle="">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {RESUME.certifications.map((c, i) => (
+                <Reveal key={c.name} delay={i * 70}>
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 h-full hover:-translate-y-1 transition-transform duration-300">
+                    <BookOpen size={20} className="text-cyan-400 mb-3" />
+                    <p className="font-semibold text-slate-100 text-sm">{c.name}</p>
+                    <p className="text-xs text-slate-300 mt-1">{c.issuer}</p>
+                  </div>
+                </Reveal>
+              ))}
+              {RESUME.achievements.map((a, i) => (
+                <Reveal key={a.title} delay={(i + 2) * 70}>
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 h-full hover:-translate-y-1 transition-transform duration-300">
+                    {a.icon === "trophy" ? <Trophy size={20} className="text-amber-400 mb-3" /> : <Star size={20} className="text-amber-400 mb-3" />}
+                    <p className="font-semibold text-slate-100 text-sm">{a.title}</p>
+                    <p className="text-xs text-slate-300 mt-1">{a.detail}</p>
+                  </div>
+                </Reveal>
+              ))}
+              {RESUME.extracurricular.map((e, i) => (
+                <Reveal key={e.title} delay={(i + 4) * 70}>
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 h-full hover:-translate-y-1 transition-transform duration-300">
+                    <Users size={20} className="text-indigo-400 mb-3" />
+                    <p className="font-semibold text-slate-100 text-sm">{e.title}</p>
+                    <p className="text-xs text-slate-300 mt-1">{e.detail}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+
+            <Reveal delay={200} className="mt-12">
+              <h3 className="font-display font-bold text-slate-100 mb-5 flex items-center gap-2"><GitBranch size={18} className="text-indigo-400"/> Find me online</h3>
+              <div className="flex flex-wrap gap-4">
+                {RESUME.codingProfiles.map((cp) => (
+                  <a key={cp.name} href={cp.url} target="_blank" rel="noreferrer"
+                    className="grad-border flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 hover:-translate-y-0.5 transition-transform duration-300 min-w-[200px]">
+                    {cp.name === "GitHub" ? <Github size={20} className="text-slate-200"/> : <Linkedin size={20} className="text-slate-200"/>}
+                    <div>
+                      <p className="text-sm font-semibold text-slate-100">{cp.name}</p>
+                      <p className="text-xs text-slate-300">{cp.handle}</p>
+                    </div>
+                    <ArrowUpRight size={14} className="ml-auto text-slate-300"/>
+                  </a>
+                ))}
+              </div>
+            </Reveal>
+          </Section>
+
+          <Section id="contact" eyebrow="Contact" title="Let's build something" subtitle="Open to internships, entry-level roles, and interesting collaborations.">
+            <div className="grid lg:grid-cols-5 gap-8">
+              <Reveal className="lg:col-span-2 space-y-4">
+                <ContactRow icon={Mail} label="Email" value={RESUME.email} href={`mailto:${RESUME.email}`} />
+                <ContactRow icon={Phone} label="Phone" value={RESUME.phone} href={`tel:${RESUME.phone}`} />
+                <ContactRow icon={Linkedin} label="LinkedIn" value="in/giri-prasath" href={RESUME.linkedin} />
+                <ContactRow icon={Github} label="GitHub" value="GiriPrasath28" href={RESUME.github} />
+                <ContactRow icon={MapPin} label="Location" value={RESUME.location} href={null} />
+                <div className="rounded-xl overflow-hidden border border-white/10 h-40 bg-white/[0.03] flex items-center justify-center text-slate-400 text-xs font-mono">
+                  map placeholder — Pollachi, Tamil Nadu
+                </div>
+              </Reveal>
+
+              <Reveal delay={100} className="lg:col-span-3">
+                <form onSubmit={handleFormSubmit} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8 space-y-4">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <input required value={formState.name} onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                      placeholder="Your name" className="bg-[#0B1120] border border-white/10 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-indigo-400 transition-colors" />
+                    <input required type="email" value={formState.email} onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                      placeholder="Your email" className="bg-[#0B1120] border border-white/10 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-indigo-400 transition-colors" />
+                  </div>
+                  <input required value={formState.subject} onChange={(e) => setFormState({ ...formState, subject: e.target.value })}
+                    placeholder="Subject" className="w-full bg-[#0B1120] border border-white/10 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-indigo-400 transition-colors" />
+                  <textarea required rows={5} value={formState.message} onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                    placeholder="Message" className="w-full bg-[#0B1120] border border-white/10 rounded-lg px-4 py-3 text-sm text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-indigo-400 transition-colors resize-none" />
+                  <button type="submit" className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:opacity-90 transition-opacity">
+                    <Send size={15} /> Send Message
+                  </button>
+                  {sent && <p className="text-xs text-emerald-400 text-center font-mono">Message ready — connect a form backend (e.g. Formspree) to deliver it.</p>}
+                </form>
+              </Reveal>
+            </div>
+          </Section>
+
+          <footer className="no-print border-t border-white/5 py-8 px-6 sm:px-10">
+            <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-300">
+              <p>© {new Date().getFullYear()} {RESUME.name}. All rights reserved.</p>
+              <div className="flex items-center gap-4">
+                <a href={RESUME.github} target="_blank" rel="noreferrer" className="hover:text-slate-200"><Github size={16}/></a>
+                <a href={RESUME.linkedin} target="_blank" rel="noreferrer" className="hover:text-slate-200"><Linkedin size={16}/></a>
+                <a href={`mailto:${RESUME.email}`} className="hover:text-slate-200"><Mail size={16}/></a>
+              </div>
+              <p>Built with ❤️ using React</p>
+            </div>
+          </footer>
+        </div>
+      );
+    }
+
+    function SkillBar({ name, level }) {
+      const [ref, visible] = useReveal();
+      return (
+        <div ref={ref}>
+          <div className="flex justify-between text-xs mb-1.5">
+            <span className="text-slate-200 font-medium">{name}</span>
+            <span className="text-slate-300 font-mono">{level}%</span>
+          </div>
+          <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+            <div className="skill-bar-fill h-full rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400"
+              style={{ width: visible ? `${level}%` : "0%" }} />
+          </div>
+        </div>
+      );
+    }
+
+    function ContactRow({ icon: Icon, label, value, href }) {
+      const content = (
+        <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 hover:bg-white/[0.06] transition-colors">
+          <div className="w-9 h-9 rounded-lg bg-indigo-500/15 flex items-center justify-center text-indigo-400 shrink-0"><Icon size={16} /></div>
+          <div>
+            <p className="text-[11px] uppercase tracking-wider text-slate-300 font-mono">{label}</p>
+            <p className="text-sm text-slate-100 font-medium">{value}</p>
+          </div>
+        </div>
+      );
+      return href ? <a href={href} target="_blank" rel="noreferrer">{content}</a> : content;
+    }
+
+    function ProjectCard({ project }) {
+      const [open, setOpen] = useState(false);
+      return (
+        <div className="grad-border relative rounded-2xl border border-white/10 bg-white/[0.03] overflow-hidden hover:-translate-y-1.5 transition-transform duration-300 h-full flex flex-col">
+          {project.featured && (
+            <span className="absolute top-4 right-4 text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/20">
+              Featured
+            </span>
+          )}
+          <div className="h-36 bg-gradient-to-br from-indigo-500/20 via-purple-500/15 to-cyan-500/10 flex items-center justify-center">
+            <Terminal size={34} className="text-slate-300" />
+          </div>
+          <div className="p-6 flex flex-col flex-1">
+            <div className="flex items-baseline justify-between gap-2 mb-2">
+              <h3 className="font-display font-bold text-slate-100">{project.title}</h3>
+              <span className="font-mono text-[11px] text-slate-300 shrink-0">{project.duration}</span>
+            </div>
+            <p className="text-sm text-slate-300 leading-relaxed mb-4">{project.description}</p>
+            <div className="flex flex-wrap gap-2 mb-5">
+              {project.tags.map((t) => (
+                <span key={t} className="px-2.5 py-1 rounded-md text-xs font-mono bg-white/5 border border-white/10 text-slate-300">{t}</span>
+              ))}
+            </div>
+
+            {open && (
+              <ul className="space-y-1.5 text-xs text-slate-300 mb-5 border-t border-white/5 pt-4">
+                {project.features.map((f) => (
+                  <li key={f} className="flex gap-2"><span className="text-cyan-400 mt-0.5">▸</span><span>{f}</span></li>
+                ))}
+              </ul>
+            )}
+
+            <div className="mt-auto flex items-center gap-3 pt-2">
+              <a href={project.github} target="_blank" rel="noreferrer"
+                className="flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-full border border-white/15 text-slate-100 hover:bg-white/5 transition-colors">
+                <Github size={13} /> Code
+              </a>
+              {project.demo && (
+                <a href={project.demo} target="_blank" rel="noreferrer"
+                  className="flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:opacity-90 transition-opacity">
+                  <ExternalLink size={13} /> Live Demo
+                </a>
+              )}
+              <button onClick={() => setOpen((o) => !o)} className="ml-auto text-xs font-semibold text-indigo-400 hover:text-indigo-300">
+                {open ? "Show less" : "Learn more"}
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const rootElement = document.getElementById("root");
+    const root = ReactDOM.createRoot(rootElement);
+    root.render(<Portfolio />);
+  </script>
 </body>
 </html>
